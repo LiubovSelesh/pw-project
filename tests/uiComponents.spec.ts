@@ -41,5 +41,31 @@ test.describe('Form Layouts page', () => {
         expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy  // uselected
         expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy  // selected
     })
+})
+test('checkboxes', async({page}) => {
+    await page.getByText('Modal & Overlays').click()
+    await page.getByText('Toastr').click()  
+    
+    // await page.waitForTimeout(2000);
 
+    // await page.getByRole('checkbox', {name: "Hide on click"}).click({force: true})
+    // await page.waitForTimeout(2000);
+    // await page.getByRole('checkbox', {name: "Hide on click"}).check({force: true})
+    // await page.waitForTimeout(2000);
+  
+    await page.getByRole('checkbox', {name: "Hide on click"}).uncheck({force: true})
+
+    await page.getByRole('checkbox', {name: "Prevent arising of duplicate toast"}).check({force: true})
+    
+    const allBoxes = await page.getByRole('checkbox')
+
+    for(const box of  await allBoxes.all()) {  
+         await page.waitForTimeout(1000);
+        // await box.check({force: true})
+        await box.uncheck({force: true})
+        // expect(await box.isChecked()).toBeTruthy()
+        expect(await box.isChecked()).toBeFalsy
+
+    }
+    
 })
