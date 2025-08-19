@@ -1,6 +1,8 @@
 import {expect, test} from '@playwright/test'
 import { NavigationPage } from '../page-objects/navigationPage'
 import { FormLayoutPage } from '../page-objects/formlayoutsPage'
+import { DatepickerPage } from '../page-objects/datepickerPage'
+
 
 
 test.beforeEach( async ({page}) => {
@@ -16,12 +18,17 @@ test('navigation to form page', async({page}) => {
     await navigateTo.tooltipPage()
 })
 
-test('parametrized methods', async({page}) => {
+test(' ', async({page}) => {
     const navigateTo = new NavigationPage(page)
     const onFormLayoutsPage = new FormLayoutPage(page)
+    const onDatePickerPage = new DatepickerPage(page)
 
     await navigateTo.formLayoutsPage()
     await onFormLayoutsPage.submitUsingTheGridFomWithCredentialAndSelectOption('test@test.com', 'Welcome1', 'Option 2')
-    await onFormLayoutsPage.submitInLineFormWithnameEmailAndCheckbox('John Smith', 'john@test.com', true)
+    await onFormLayoutsPage.submitInLineFormWithnameEmailAndCheckbox('John Smith', 'john@test.com', false)
+    await navigateTo.datepickerPage()
+    await onDatePickerPage.selectCommonDatePickerDateFromToday(5)
+    await onDatePickerPage.selectDatePickerWithRangeFromToday(5, 6)
+
 
 })
